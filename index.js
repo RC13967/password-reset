@@ -17,9 +17,7 @@ async function createConnection() {
 }
 
 app.get("/", async (request, response) => {
-  const client = await createConnection();
-  const result = await client.db("resetflow").collection("passwords").find({}).toArray();
-  response.send(result);
+  response.send("please append the end points");
 })
 app.post("/users/forgot", async (request, response) => {
   const { email } = request.body;
