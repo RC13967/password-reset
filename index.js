@@ -48,7 +48,7 @@ app.post("/users/forgot", async (request, response) => {
       to: email,
       subject: 'Reset Password link',
       html:
-        '<a href = "http://localhost:3000/' + email + '/' + randomString + '"> Reset Password Link</a>'
+        '<a href = "https://password-reset-ranjith.netlify.app/' + email + '/' + randomString + '"> Reset Password Link</a>'
     };
     transporter.sendMail(mailOptions, function (err, data) {
       if (err) {
