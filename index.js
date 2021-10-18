@@ -89,6 +89,8 @@ app.put("/resetPassword/:email/:randomString", async (request, response) => {
   const { email, randomString } = request.params;
   const { newPassword } = request.body;
   const client = await createConnection();
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(newPassword, salt);
   const user = await client.db("resetflow").collection("passwords").find({ email: email, randomString: randomString }).toArray();
   if (!user[0]) {
     response.send({message:"invalid url"});
@@ -103,7 +105,7 @@ app.put("/resetPassword/:email/:randomString", async (request, response) => {
     },
       {
         $set: {
-          password: newPassword
+          password: hashedPassword
         },
         $unset: {
           randomString: "",
